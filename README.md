@@ -7,17 +7,19 @@ PowerShell — which is a sign of a malicious macro attack.
 
 ## How This Project Started
 
-At a previous job I saw users receiving phishing emails with Word and Excel 
-attachments. When they opened them, the document showed what looked like a 
-CAPTCHA or "I'm not a robot" checkbox. Clicking it would silently run 
-malicious code in the background without the user knowing.
+At a previous job our email gateway flagged a suspicious email but 
+didn't block it — it sent an alert to our PhishAnalyzer queue for 
+the SOC team to review.
 
-We had security tools like an EDR and email gateway that alerted and acted 
-on it, but I was curious to understand what was actually happening at the 
-process level. I wanted to see if I could independently validate what those 
-tools were catching by looking at the raw logs myself.
+We pulled the attachment and ran it through a sandbox which showed 
+a Excel document spawning encoded PowerShell. This confirmed it was 
+a ClickFix attack — where a malicious document shows a fake CAPTCHA 
+or "I'm not a robot" prompt that silently runs a macro when clicked.
 
-So I built this script to learn how that detection works.
+I was curious to understand how you would detect that same behavior 
+at the endpoint level using raw process logs. So I built this script 
+to learn the detection logic myself and validate what the sandbox 
+was already showing us.
 
 ---
 
@@ -29,6 +31,24 @@ So I built this script to learn how that detection works.
 - What Base64 encoded PowerShell commands look like and why
   attackers use them to hide what they're doing
 - How to map what I was seeing to MITRE ATT&CK techniques
+- How endpoint detection complements email gateway and sandbox tools
+
+---
+
+## The SOC Workflow That Inspired This
+```
+Phishing email with fake CAPTCHA attachment sent to user
+        ↓
+Email gateway flags it as suspicious but delivers anyway
+        ↓
+Alert sent to PhishAnalyzer queue for SOC review
+        ↓
+SOC pulls attachment and runs it through sandbox
+        ↓
+Sandbox confirms Word spawning encoded PowerShell
+        ↓
+This script validates the same activity via Sysmon logs
+```
 
 ---
 
@@ -151,8 +171,6 @@ Encoded PowerShell commands: 1 (highest severity)
 ---
 
 ## Resources That Helped Me
-
-These are the resources I actually used while building this:
 
 - [MITRE ATT&CK T1059.001 - PowerShell](https://attack.mitre.org/techniques/T1059/001/)
 - [MITRE ATT&CK T1204.002 - Malicious File](https://attack.mitre.org/techniques/T1204/002/)
