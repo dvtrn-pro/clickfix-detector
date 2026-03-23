@@ -12,7 +12,7 @@ didn't block it — it sent an alert to our PhishAnalyzer queue for
 the SOC team to review.
 
 We pulled the attachment and ran it through a sandbox which showed 
-a Excel document spawning encoded PowerShell. This confirmed it was 
+a Word/Excel document spawning encoded PowerShell. This confirmed it was 
 a ClickFix attack — where a malicious document shows a fake CAPTCHA 
 or "I'm not a robot" prompt that silently runs a macro when clicked.
 
@@ -45,7 +45,7 @@ Alert sent to PhishAnalyzer queue for SOC review
         ↓
 SOC pulls attachment and runs it through sandbox
         ↓
-Sandbox confirms Word spawning encoded PowerShell
+Sandbox confirms Word/Excel spawning encoded PowerShell
         ↓
 This script validates the same activity via Sysmon logs
 ```
