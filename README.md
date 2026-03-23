@@ -150,19 +150,6 @@ Encoded PowerShell commands: 1 (highest severity)
 
 ---
 
-## What I Would Add Next
-
-These are things I want to improve as I keep learning:
-
-- [ ] Add detection for Outlook spawning PowerShell (phishing delivery)
-- [ ] Automatically decode and display the Base64 command so 
-      you can see what the attacker was actually trying to run
-- [ ] Export findings to JSON so it could feed into a SIEM
-- [ ] Add a timestamp range filter so you can hunt within 
-      a specific window of time
-
----
-
 ## Resources That Helped Me
 
 These are the resources I actually used while building this:
