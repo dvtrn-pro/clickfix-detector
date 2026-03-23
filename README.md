@@ -27,7 +27,7 @@ was already showing us.
 
 - How Sysmon captures process creation events on Windows
 - Why parent-child process relationships are a red flag
-  (Word should never open a command shell during normal use)
+  (Word/Excel should never open a command shell during normal use)
 - What Base64 encoded PowerShell commands look like and why
   attackers use them to hide what they're doing
 - How to map what I was seeing to MITRE ATT&CK techniques
